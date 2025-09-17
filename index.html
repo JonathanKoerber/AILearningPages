@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IS 312: Web Design and Programming - Interactive Syllabus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .nav-btn h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .nav-btn p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .assignment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .assignment-card {
+            background: linear-gradient(135deg, #f6f9fc, #e9ecef);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .assignment-card.mp { border-left-color: #28a745; }
+        .assignment-card.cd { border-left-color: #17a2b8; }
+        .assignment-card.kc { border-left-color: #ffc107; }
+        .assignment-card.hos { border-left-color: #dc3545; }
+        .assignment-card.pe { border-left-color: #6f42c1; }
+        .assignment-card.tp { border-left-color: #fd7e14; }
+
+        .assignment-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .points-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .grading-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .grading-table th,
+        .grading-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .grading-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .grading-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .outcomes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .outcomes-list li {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .outcomes-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fef08a 0%, #fef08a 100%);
+            background-size: 100% 50%;
+            background-repeat: no-repeat;
+            background-position: 0 100%;
+            animation: highlight 0.5s ease-out;
+        }
+
+        @keyframes highlight {
+            from { background-size: 0% 50%; }
+            to { background-size: 100% 50%; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .assignment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>IS 312: Web Design and Programming</h1>
+            <p class="subtitle">School of Technology & Computing</p>
+            <div class="course-info">
+                <div class="info-card">
+                    <strong>Credits:</strong> 5 Credits
+                </div>
+                <div class="info-card">
+                    <strong>Level:</strong> Undergraduate
+                </div>
+                <div class="info-card">
+                    <strong>Total Points:</strong> 1,000
+                </div>
+                <div class="info-card">
+                    <strong>Duration:</strong> 10 Modules
+                </div>
+            </div>
+        </div>
+
+        <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search syllabus content...">
+
+        <div class="nav-buttons">
+            <button class="nav-btn active" data-section="overview">
+                <h3>📋 Course Overview</h3>
+                <p>Description, outcomes & tech stack</p>
+            </button>
+            <button class="nav-btn" data-section="assignments">
+                <h3>📚 Assignments</h3>
+                <p>Detailed breakdown of all coursework</p>
+            </button>
+            <button class="nav-btn" data-section="grading">
+                <h3>📊 Grading Scale</h3>
+                <p>Points distribution & criteria</p>
+            </button>
+            <button class="nav-btn" data-section="schedule">
+                <h3>📅 Module Tracker</h3>
+                <p>Track your progress through modules</p>
+            </button>
+            <button class="nav-btn" data-section="policies">
+                <h3>📜 Policies</h3>
+                <p>Course & university policies</p>
+            </button>
+            <button class="nav-btn" data-section="resources">
+                <h3>🔗 Resources</h3>
+                <p>Support services & contact info</p>
+            </button>
+        </div>
+
+        <div id="overview" class="content-section active">
+            <h2>Course Description</h2>
+            <p>This course introduces students to the strategic importance of web design and teaches students how to apply standards, design principles and web development tools to create effective business-driven websites. The course emphasizes a business-driven design, build, and test cycle, and introduces students to the fusion of multiple data sources into a website.</p>
+            
+            <h3>Technologies Covered</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">HTML</span>
+                <span class="tech-badge">CSS</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">TypeScript</span>
+            </div>
+
+            <h3>Learning Outcomes</h3>
+            <ul class="outcomes-list">
+                <li>Understand HTML, CSS, JavaScript, and TypeScript</li>
+                <li>Apply HTML, CSS, JavaScript, and TypeScript to web applications</li>
+                <li>Analyze TypeScript for web applications</li>
+                <li>Evaluate TypeScript technologies for web applications</li>
+                <li>Create a web application by using TypeScript</li>
+            </ul>
+        </div>
+
+        <div id="assignments" class="content-section">
+            <h2>Assignment Types</h2>
+            <div class="assignment-grid">
+                <div class="assignment-card mp">
+                    <div class="points-badge">50 Points Total</div>
+                    <h4>Muddiest Point (MP)</h4>
+                    <p><strong>5% of Final Grade</strong></p>
+                    <p>Brief reflective essays (≤50 words) identifying the most confusing part of upcoming module content, plus multiple-choice questions.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 5%"></div>
+                    </div>
+                    <p><small>10 modules × 5 points each</small></p>
+                </div>
+
+                <div class="assignment-card cd">
+                    <div class="points-badge">50 Points Total</div>
+                    <h4>Concept Debate (CD)</h4>
+                    <p><strong>5% of Final Grade</strong></p>
+                    <p>Problem-solving discussions based on key web development concepts, involving peer collaboration and resubmission.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 5%"></div>
+                    </div>
+                    <p><small>10 modules × 5 points each</small></p>
+                </div>
+
+                <div class="assignment-card kc">
+                    <div class="points-badge">100 Points Total</div>
+                    <h4>Knowledge Check (KC)</h4>
+                    <p><strong>10% of Final Grade</strong></p>
+                    <p>Weekly quizzes measuring knowledge of HTML, CSS, JavaScript, and TypeScript concepts and principles.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 10%"></div>
+                    </div>
+                    <p><small>10 modules × 10 points each</small></p>
+                </div>
+
+                <div class="assignment-card hos">
+                    <div class="points-badge">200 Points Total</div>
+                    <h4>Hands-On Skill (HOS)</h4>
+                    <p><strong>20% of Final Grade</strong></p>
+                    <p>Paired practice exercises learning specific TypeScript features, APIs, and web development tools.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%"></div>
+                    </div>
+                    <p><small>10 modules × 20 points each</small></p>
+                </div>
+
+                <div class="assignment-card pe">
+                    <div class="points-badge">400 Points Total</div>
+                    <h4>Programming Exercise (PE)</h4>
+                    <p><strong>40% of Final Grade</strong></p>
+                    <p>Individual programming assignments applying TypeScript technologies. Programs must be executable, robust, and well-documented.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%"></div>
+                    </div>
+                    <p><small>10 modules × 40 points each</small></p>
+                </div>
+
+                <div class="assignment-card tp">
+                    <div class="points-badge">200 Points Total</div>
+                    <h4>Team Project (TP)</h4>
+                    <p><strong>20% of Final Grade</strong></p>
+                    <p>Comparative analysis of all programming exercises with team collaboration, including proposal, progress reports, and final presentation.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 20%"></div>
+                    </div>
+                    <p><small>Proposal(30) + Progress(70) + Report(70) + PPT(30)</small></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="grading" class="content-section">
+            <h2>Grading Breakdown</h2>
+            <table class="grading-table">
+                <thead>
+                    <tr>
+                        <th>Assignment Type</th>
+                        <th>Percentage</th>
+                        <th>Points</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Instructor Determined</strong></td>
+                        <td>20%</td>
+                        <td>200</td>
+                        <td>MP + CD + KC</td>
+                    </tr>
+                    <tr>
+                        <td>• Muddiest Point (MP)</td>
+                        <td>5%</td>
+                        <td>50</td>
+                        <td>10 modules × 5 points</td>
+                    </tr>
+                    <tr>
+                        <td>• Concept Debate (CD)</td>
+                        <td>5%</td>
+                        <td>50</td>
+                        <td>10 modules × 5 points</td>
+                    </tr>
+                    <tr>
+                        <td>• Knowledge Check (KC)</td>
+                        <td>10%</td>
+                        <td>100</td>
+                        <td>10 modules × 10 points</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Major Assessments</strong></td>
+                        <td>80%</td>
+                        <td>800</td>
+                        <td>HOS + PE + TP</td>
+                    </tr>
+                    <tr>
+                        <td>• Hands-On Skill (HOS)</td>
+                        <td>20%</td>
+                        <td>200</td>
+                        <td>10 modules × 20 points</td>
+                    </tr>
+                    <tr>
+                        <td>• Programming Exercise (PE)</td>
+                        <td>40%</td>
+                        <td>400</td>
+                        <td>10 modules × 40 points</td>
+                    </tr>
+                    <tr>
+                        <td>• Team Project (TP)</td>
+                        <td>20%</td>
+                        <td>200</td>
+                        <td>Proposal + Progress + Final</td>
+                    </tr>
+                    <tr style="background-color: #f0f8ff;">
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>100%</strong></td>
+                        <td><strong>1,000</strong></td>
+                        <td><strong>All Assignments</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Assignment Criteria Breakdown</h3>
+            <div class="assignment-grid">
+                <div class="assignment-card">
+                    <h4>Programming Exercise (PE) Criteria</h4>
+                    <p>Program Execution: <strong>40%</strong></p>
+                    <p>User Requirements: <strong>40%</strong></p>
+                    <p>Documentation: <strong>20%</strong></p>
+                </div>
+                <div class="assignment-card">
+                    <h4>Team Project (TP) Criteria</h4>
+                    <p>General Computing: <strong>20%</strong></p>
+                    <p>Critical Thinking: <strong>60%</strong></p>
+                    <p>Collaboration: <strong>20%</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="schedule" class="content-section">
+            <h2>Module Progress Tracker</h2>
+            <p>Track your progress through all 10 course modules:</p>
+            
+            <div id="moduleTracker">
+                <!-- Modules will be generated by JavaScript -->
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 15px;">
+                <h3>Weekly Assignments per Module</h3>
+                <ul>
+                    <li><strong>Muddiest Point (MP):</strong> 5 points</li>
+                    <li><strong>Concept Debate (CD):</strong> 5 points</li>
+                    <li><strong>Knowledge Check (KC):</strong> 10 points</li>
+                    <li><strong>Hands-On Skill (HOS):</strong> 20 points</li>
+                    <li><strong>Programming Exercise (PE):</strong> 40 points</li>
+                </ul>
+                <p><strong>Total per module: 80 points</strong></p>
+                <p><em>Plus Team Project components spread across modules</em></p>
+            </div>
+        </div>
+
+        <div id="policies" class="content-section">
+            <h2>Course Policies</h2>
+            
+            <h3>Academic Requirements</h3>
+            <ul>
+                <li>Access to the Internet is required</li>
+                <li>All written assignments must be in Microsoft-Word-compatible formats</li>
+                <li>Use APA Style for citations and references</li>
+                <li>Programs must be executable and robust</li>
+                <li>Non-executable programs will not receive any credits</li>
+            </ul>
+
+            <h3>University Policies</h3>
+            
+            <h4>Academic Integrity</h4>
+            <p>Students are responsible for understanding and adhering to CityU's academic integrity policy. All work must be original and properly cited.</p>
+            
+            <h4>Attendance</h4>
+            <p>Regular attendance is expected and may be considered in final grading. For online classes, attendance means posting or submitting assignments.</p>
+            
+            <h4>Accommodations</h4>
+            <p>Students with documented disabilities should contact Disability Support Services at <a href="mailto:disability@cityu.edu">disability@cityu.edu</a> or 206.239.4752.</p>
+            
+            <h4>Religious Accommodations</h4>
+            <p>Accommodations for religious observances must be requested within the first two weeks of the course.</p>
+
+            <div class="contact-info">
+                <h4>Title IX Statement</h4>
+                <p>City University of Seattle is committed to providing an environment free from discrimination and harassment. If you experience any form of misconduct, please report it to the Title IX coordinator.</p>
+            </div>
+        </div>
+
+        <div id="resources" class="content-section">
+            <h2>Support Resources</h2>
+            
+            <div class="assignment-grid">
+                <div class="assignment-card">
+                    <h4>📚 Library Services</h4>
+                    <p>CityU librarians available 24/7 through "Ask a Librarian" service</p>
+                    <p><strong>Access:</strong> Online portal</p>
+                </div>
+                
+                <div class="assignment-card">
+                    <h4>✏️ Online Tutoring</h4>
+                    <p>Free tutoring through Brainfuse, including writing support</p>
+                    <p><strong>Availability:</strong> 24/7 with certified tutors</p>
+                </div>
+                
+                <div class="assignment-card">
+                    <h4>♿ Disability Support</h4>
+                    <p>Academic accommodations for documented disabilities</p>
+                    <p><strong>Contact:</strong> disability@cityu.edu | 206.239.4752</p>
+                </div>
+                
+                <div class="assignment-card">
+                    <h4>📖 Course Resources</h4>
+                    <p>Required and recommended resources available through Reading List</p>
+                    <p><strong>Location:</strong> Main tab in online course</p>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <h3>📞 Contact Information</h3>
+                <p>Contact information for instructors, TAs, Program Manager, Program Director, and Dean can be found in the online course menu with links to office hours.</p>
+                
+                <h4>Additional Resources</h4>
+                <ul>
+                    <li><strong>APA Style Guide:</strong> Available through library tutorial</li>
+                    <li><strong>Plagiarism Prevention:</strong> "Avoid Plagiarism" resources</li>
+                    <li><strong>University Catalog:</strong> Current policies and procedures</li>
+                    <li><strong>Student Portal:</strong> my.cityu.edu for forms and services</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetSection = button.getAttribute('data-section');
+                
+                // Remove active class from all buttons and sections
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+                
+                // Add active class to clicked button and target section
+                button.classList.add('active');
+                document.getElementById(targetSection).classList.add('active');
+            });
+        });
+
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        
+        searchBox.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm.length < 2) {
+                // Clear any existing highlights
+                clearHighlights();
+                return;
+            }
+            
+            // Clear previous highlights
+            clearHighlights();
+            
+            // Search through all content sections
+            contentSections.forEach(section => {
+                const textElements = section.querySelectorAll('p, h2, h3, h4, li, td');
+                textElements.forEach(element => {
+                    const text = element.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        highlightText(element, searchTerm);
+                    }
+                });
+            });
+        });
+
+        function highlightText(element, searchTerm) {
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            element.innerHTML = element.innerHTML.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function clearHighlights() {
+            const highlights = document.querySelectorAll('.highlight');
+            highlights.forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                parent.normalize();
+            });
+        }
+
+        // Module tracker functionality
+        function generateModuleTracker() {
+            const moduleTracker = document.getElementById('moduleTracker');
+            let trackerHTML = '';
+            
+            for (let i = 1; i <= 10; i++) {
+                trackerHTML += `
+                    <div class="assignment-card" style="margin-bottom: 15px;">
+                        <h4>Module ${i}</h4>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" class="module-checkbox" data-module="${i}" data-type="mp">
+                                <span>MP (5pts)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" class="module-checkbox" data-module="${i}" data-type="cd">
+                                <span>CD (5pts)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" class="module-checkbox" data-module="${i}" data-type="kc">
+                                <span>KC (10pts)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" class="module-checkbox" data-module="${i}" data-type="hos">
+                                <span>HOS (20pts)</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" class="module-checkbox" data-module="${i}" data-type="pe">
+                                <span>PE (40pts)</span>
+                            </label>
+                        </div>
+                        <div class="progress-bar" style="margin-top: 10px;">
+                            <div class="progress-fill" id="progress-${i}" style="width: 0%"></div>
+                        </div>
+                        <p style="margin-top: 5px; font-size: 0.9rem;"><span id="points-${i}">0</span>/80 points completed</p>
+                    </div>
+                `;
+            }
+            
+            moduleTracker.innerHTML = trackerHTML;
+            
+            // Add event listeners to checkboxes
+            const checkboxes = document.querySelectorAll('.module-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateModuleProgress);
+            });
+        }
+
+        function updateModuleProgress() {
+            for (let i = 1; i <= 10; i++) {
+                const moduleCheckboxes = document.querySelectorAll(`input[data-module="${i}"]`);
+                let completedPoints = 0;
+                let totalChecked = 0;
+                
+                moduleCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        totalChecked++;
+                        switch(checkbox.dataset.type) {
+                            case 'mp': completedPoints += 5; break;
+                            case 'cd': completedPoints += 5; break;
+                            case 'kc': completedPoints += 10; break;
+                            case 'hos': completedPoints += 20; break;
+                            case 'pe': completedPoints += 40; break;
+                        }
+                    }
+                });
+                
+                const progressPercentage = (completedPoints / 80) * 100;
+                const progressBar = document.getElementById(`progress-${i}`);
+                const pointsDisplay = document.getElementById(`points-${i}`);
+                
+                if (progressBar) {
+                    progressBar.style.width = `${progressPercentage}%`;
+                }
+                if (pointsDisplay) {
+                    pointsDisplay.textContent = completedPoints;
+                }
+            }
+            
+            updateOverallProgress();
+        }
+
+        function updateOverallProgress() {
+            let totalCompleted = 0;
+            let overallPoints = 0;
+            
+            for (let i = 1; i <= 10; i++) {
+                const pointsDisplay = document.getElementById(`points-${i}`);
+                if (pointsDisplay) {
+                    overallPoints += parseInt(pointsDisplay.textContent) || 0;
+                }
+            }
+            
+            // Add team project tracking
+            const teamProjectCheckboxes = document.querySelectorAll('.tp-checkbox');
+            let teamProjectPoints = 0;
+            teamProjectCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    teamProjectPoints += parseInt(checkbox.dataset.points) || 0;
+                }
+            });
+            
+            const totalPoints = overallPoints + teamProjectPoints;
+            const overallPercentage = (totalPoints / 1000) * 100;
+            
+            // Update overall progress display if exists
+            const overallProgressBar = document.getElementById('overall-progress');
+            const overallPointsDisplay = document.getElementById('overall-points');
+            
+            if (overallProgressBar) {
+                overallProgressBar.style.width = `${overallPercentage}%`;
+            }
+            if (overallPointsDisplay) {
+                overallPointsDisplay.textContent = `${totalPoints}/1000`;
+            }
+        }
+
+        // Add overall progress tracker to schedule section
+        function addOverallProgressTracker() {
+            const scheduleSection = document.getElementById('schedule');
+            const overallTracker = document.createElement('div');
+            overallTracker.innerHTML = `
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 25px; border-radius: 20px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 15px; color: white;">📊 Overall Course Progress</h3>
+                    <div class="progress-bar" style="height: 12px; background: rgba(255,255,255,0.3);">
+                        <div class="progress-fill" id="overall-progress" style="width: 0%; background: linear-gradient(90deg, #fbbf24, #f59e0b);"></div>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 1.1rem;"><span id="overall-points">0</span> points completed</p>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">Complete assignments to track your progress toward the 1000 point goal!</p>
+                </div>
+            `;
+            
+            scheduleSection.insertBefore(overallTracker, scheduleSection.querySelector('#moduleTracker'));
+        }
+
+        // Add team project tracker
+        function addTeamProjectTracker() {
+            const scheduleSection = document.getElementById('schedule');
+            const teamProjectTracker = document.createElement('div');
+            teamProjectTracker.innerHTML = `
+                <div class="assignment-card tp" style="margin-top: 30px;">
+                    <h4>🤝 Team Project Progress</h4>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" class="tp-checkbox" data-points="30">
+                            <span>Proposal (30pts)</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" class="tp-checkbox" data-points="70">
+                            <span>Progress Report (70pts)</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" class="tp-checkbox" data-points="70">
+                            <span>Final Report (70pts)</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" class="tp-checkbox" data-points="30">
+                            <span>Final Presentation (30pts)</span>
+                        </label>
+                    </div>
+                    <div class="progress-bar" style="margin-top: 15px;">
+                        <div class="progress-fill" id="tp-progress" style="width: 0%"></div>
+                    </div>
+                    <p style="margin-top: 8px; font-size: 0.9rem;"><span id="tp-points">0</span>/200 points completed</p>
+                </div>
+            `;
+            
+            scheduleSection.appendChild(teamProjectTracker);
+            
+            // Add event listeners for team project checkboxes
+            const tpCheckboxes = document.querySelectorAll('.tp-checkbox');
+            tpCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateTeamProjectProgress);
+            });
+        }
+
+        function updateTeamProjectProgress() {
+            const tpCheckboxes = document.querySelectorAll('.tp-checkbox');
+            let completedPoints = 0;
+            
+            tpCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    completedPoints += parseInt(checkbox.dataset.points) || 0;
+                }
+            });
+            
+            const progressPercentage = (completedPoints / 200) * 100;
+            const progressBar = document.getElementById('tp-progress');
+            const pointsDisplay = document.getElementById('tp-points');
+            
+            if (progressBar) {
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+            if (pointsDisplay) {
+                pointsDisplay.textContent = completedPoints;
+            }
+            
+            updateOverallProgress();
+        }
+
+        // Add grade calculator
+        function addGradeCalculator() {
+            const gradingSection = document.getElementById('grading');
+            const calculator = document.createElement('div');
+            calculator.innerHTML = `
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 20px; margin-top: 30px; border: 2px dashed #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">🧮 Grade Calculator</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Current Points:</label>
+                            <input type="number" id="current-points" max="1000" min="0" style="width: 100%; padding: 8px; border: 2px solid #e2e8f0; border-radius: 8px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Points Possible:</label>
+                            <input type="number" id="possible-points" value="1000" max="1000" min="0" style="width: 100%; padding: 8px; border: 2px solid #e2e8f0; border-radius: 8px;">
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 15px; text-align: center;">
+                        <h4>Current Grade</h4>
+                        <div style="font-size: 2rem; color: #667eea; font-weight: bold;" id="calculated-grade">--%</div>
+                        <p style="margin-top: 10px; font-size: 1.1rem;" id="grade-status">Enter your points to calculate grade</p>
+                    </div>
+                </div>
+            `;
+            
+            gradingSection.appendChild(calculator);
+            
+            // Add event listeners for grade calculation
+            const currentPointsInput = document.getElementById('current-points');
+            const possiblePointsInput = document.getElementById('possible-points');
+            
+            [currentPointsInput, possiblePointsInput].forEach(input => {
+                input.addEventListener('input', calculateGrade);
+            });
+        }
+
+        function calculateGrade() {
+            const currentPoints = parseFloat(document.getElementById('current-points').value) || 0;
+            const possiblePoints = parseFloat(document.getElementById('possible-points').value) || 1000;
+            
+            if (possiblePoints === 0) return;
+            
+            const percentage = (currentPoints / possiblePoints) * 100;
+            const gradeDisplay = document.getElementById('calculated-grade');
+            const statusDisplay = document.getElementById('grade-status');
+            
+            gradeDisplay.textContent = `${percentage.toFixed(1)}%`;
+            
+            // Determine letter grade and status
+            let letterGrade = 'F';
+            let status = 'Needs Improvement';
+            let color = '#dc3545';
+            
+            if (percentage >= 97) { letterGrade = 'A+'; status = 'Excellent!'; color = '#28a745'; }
+            else if (percentage >= 93) { letterGrade = 'A'; status = 'Excellent!'; color = '#28a745'; }
+            else if (percentage >= 90) { letterGrade = 'A-'; status = 'Great!'; color = '#28a745'; }
+            else if (percentage >= 87) { letterGrade = 'B+'; status = 'Good!'; color = '#20c997'; }
+            else if (percentage >= 83) { letterGrade = 'B'; status = 'Good!'; color = '#20c997'; }
+            else if (percentage >= 80) { letterGrade = 'B-'; status = 'Satisfactory'; color = '#17a2b8'; }
+            else if (percentage >= 77) { letterGrade = 'C+'; status = 'Satisfactory'; color = '#ffc107'; }
+            else if (percentage >= 73) { letterGrade = 'C'; status = 'Satisfactory'; color = '#ffc107'; }
+            else if (percentage >= 70) { letterGrade = 'C-'; status = 'Passing'; color = '#fd7e14'; }
+            else if (percentage >= 67) { letterGrade = 'D+'; status = 'Below Average'; color = '#fd7e14'; }
+            else if (percentage >= 65) { letterGrade = 'D'; status = 'Below Average'; color = '#dc3545'; }
+            
+            gradeDisplay.style.color = color;
+            statusDisplay.textContent = `${letterGrade} - ${status}`;
+            statusDisplay.style.color = color;
+        }
+
+        // Initialize all interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            generateModuleTracker();
+            addOverallProgressTracker();
+            addTeamProjectTracker();
+            addGradeCalculator();
+            
+            // Add some nice loading animations
+            const cards = document.querySelectorAll('.assignment-card, .nav-btn');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        document.querySelector('[data-section="overview"]').click();
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        document.querySelector('[data-section="assignments"]').click();
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        document.querySelector('[data-section="grading"]').click();
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        document.querySelector('[data-section="schedule"]').click();
+                        break;
+                    case '5':
+                        e.preventDefault();
+                        document.querySelector('[data-section="policies"]').click();
+                        break;
+                    case '6':
+                        e.preventDefault();
+                        document.querySelector('[data-section="resources"]').click();
+                        break;
+                    case '/':
+                        e.preventDefault();
+                        document.getElementById('searchBox').focus();
+                        break;
+                }
+            }
+        });
+
+        // Add tips and shortcuts info
+        function addKeyboardShortcuts() {
+            const container = document.querySelector('.container');
+            const shortcutsInfo = document.createElement('div');
+            shortcutsInfo.innerHTML = `
+                <div style="position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); color: white; padding: 15px; border-radius: 10px; font-size: 0.8rem; max-width: 250px; z-index: 1000; display: none;" id="shortcuts-tooltip">
+                    <h4 style="margin-bottom: 10px;">⌨️ Keyboard Shortcuts</h4>
+                    <p>Ctrl/Cmd + 1-6: Navigate sections</p>
+                    <p>Ctrl/Cmd + /: Focus search</p>
+                    <p>Click this icon to toggle tips</p>
+                </div>
+                <button style="position: fixed; bottom: 20px; right: 20px; background: #667eea; color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; z-index: 1001; box-shadow: 0 5px 15px rgba(0,0,0,0.2);" onclick="toggleShortcuts()" title="Keyboard Shortcuts">⌨️</button>
+            `;
+            
+            document.body.appendChild(shortcutsInfo);
+        }
+
+        function toggleShortcuts() {
+            const tooltip = document.getElementById('shortcuts-tooltip');
+            tooltip.style.display = tooltip.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Initialize shortcuts
+        setTimeout(addKeyboardShortcuts, 1000);
+    </script>
+</body>
+</html>
