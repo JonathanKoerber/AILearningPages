@@ -1,4 +1,4 @@
-AI Literacy Courses
+## AI Literacy Courses
 
 This repository hosts a growing collection of AI literacy materials designed to make artificial intelligence approachable for learners of all backgrounds. The goal is to demystify core concepts, explain how AI systems work, and provide hands-on activities that build both technical understanding and critical awareness.
 
